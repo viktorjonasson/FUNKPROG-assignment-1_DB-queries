@@ -1,16 +1,27 @@
 import com.mongodb.client.*;
 import org.bson.Document;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class DBQueryProgram {
 
     DBQueryProgram() {
 
-        String uri = "mongodb+srv://viktorjonasson:bkfrJnOkJvONbwWs@dbtek-01.syqnq.mongodb.net/?retryWrites=true&w=majority&appName=DBTEK-01";
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream("src/main/java/MongoDBCredentials.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Queries queries = new Queries();
 
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
+        try (MongoClient mongoClient = MongoClients.create(prop.getProperty("connectionURI"))) {
             MongoDatabase db = mongoClient.getDatabase("sample_mflix");
             MongoCollection<Document> moviesCollection = db.getCollection("movies");
 
@@ -42,8 +53,7 @@ public class DBQueryProgram {
             System.out.println("Name of most recurring actor: " + queries.mostRecurringActorCompact(movieList));
             System.out.println("True or false, several movies have the same title: " + queries.duplicateTitleCompact(movieList));
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
