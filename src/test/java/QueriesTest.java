@@ -73,4 +73,23 @@ class QueriesTest {
         assert(queries.duplicateTitle(testDataMovies));
         assert(!queries.duplicateTitle(emptyTestDataMovies));
     }
+
+    //Tests for queries using Higher order function
+    @Test
+    public final void testQuestion6Compact() {
+        assert(queries.noOfActorsInMultipleMoviesCompact(testDataMovies) == 2);
+        assert(queries.noOfActorsInMultipleMoviesCompact(testDataMovies) != 3);
+    }
+
+    @Test
+    public final void testQuestion7Compact() {
+        assert(queries.mostRecurringActorCompact(testDataMovies).equals("Giuseppe Anatrelli"));
+        assert!(queries.mostRecurringActorCompact(testDataMovies).equals("Yuriy Solomin"));
+    }
+
+    @Test
+    public final void testQuestion9Compact() {
+        assert(queries.duplicateTitleCompact(testDataMovies));
+        assert(!queries.duplicateTitleCompact(emptyTestDataMovies));
+    }
 }
