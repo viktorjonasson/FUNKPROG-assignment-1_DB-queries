@@ -52,4 +52,3 @@ public class DBQueryProgram {
         DBQueryProgram m = new DBQueryProgram();
     }
 }
-
